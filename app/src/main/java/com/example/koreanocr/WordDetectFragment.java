@@ -3,6 +3,7 @@ package com.example.koreanocr;
 import static androidx.core.content.ContextCompat.getMainExecutor;
 
 import android.annotation.SuppressLint;
+import android.util.Size;
 import android.view.LayoutInflater;
 
 import android.os.Build;
