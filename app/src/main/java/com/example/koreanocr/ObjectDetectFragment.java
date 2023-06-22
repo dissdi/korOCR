@@ -23,11 +23,11 @@ import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.ExecutionException;
 
-public class WordDetectFragment extends Fragment {
+public class ObjectDetectFragment extends Fragment {
     public static PreviewView previewView;
     public static TextView textView;
 
-    private ProcessCameraProvider cameraProvider = null;
+    private ProcessCameraProvider cameraProvider;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,7 +65,7 @@ public class WordDetectFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             cameraProviderFuture.addListener(() -> {
                 // Used to bind the lifecycle of cameras to the lifecycle owner
-                ProcessCameraProvider cameraProvider;
+                ProcessCameraProvider cameraProvider = null;
                 try {
                     cameraProvider = cameraProviderFuture.get();
                 } catch (ExecutionException e) {
@@ -96,12 +96,14 @@ public class WordDetectFragment extends Fragment {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                     imageAnalysis.setAnalyzer(getMainExecutor(super.getContext()), new LanguageAnalyzer(super.getContext()));
                 }
+
                 try {
                     // Unbind use cases before rebinding
                     cameraProvider.unbindAll();
                     // Bind use cases to camera
                     cameraProvider.bindToLifecycle(
                             this, cameraSelector, preview, imageAnalysis);
+
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

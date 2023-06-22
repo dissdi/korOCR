@@ -35,7 +35,6 @@ public class MainPageActivity extends FragmentActivity {
         }
     }
 
-
     @Override
     public void onBackPressed() {
         if (viewPager.getCurrentItem() == 1) {
@@ -48,10 +47,6 @@ public class MainPageActivity extends FragmentActivity {
         }
     }
 
-    /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-     * sequence.
-     */
     private class ScreenSlidePagerAdapter extends FragmentStateAdapter {
         public ScreenSlidePagerAdapter(FragmentActivity fa) {
             super(fa);
@@ -62,7 +57,6 @@ public class MainPageActivity extends FragmentActivity {
                 case 0:
                     return new WordDetectFragment();
                 case 1:
-
                     return new MainFragment();
                 case 2:
                     return new WordDetectFragment();
