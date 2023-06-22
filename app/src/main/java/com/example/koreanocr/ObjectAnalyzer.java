@@ -1,5 +1,7 @@
 package com.example.koreanocr;
 
+import static android.net.wifi.p2p.WifiP2pManager.ERROR;
+
 import android.content.Context;
 import android.media.Image;
 import android.speech.tts.TextToSpeech;
@@ -16,6 +18,8 @@ import com.google.mlkit.vision.objects.ObjectDetection;
 import com.google.mlkit.vision.objects.ObjectDetector;
 import com.google.mlkit.vision.objects.defaults.ObjectDetectorOptions;
 
+import java.util.Locale;
+
 public class ObjectAnalyzer implements ImageAnalysis.Analyzer {
     private ObjectDetector detector;
     private PreviewView screen;
@@ -29,7 +33,20 @@ public class ObjectAnalyzer implements ImageAnalysis.Analyzer {
                     .enableClassification()  // Optional
                     .build();
     public ObjectAnalyzer(Context context) {
+        this.context = context;
+        this.screen = WordDetectFragment.previewView;
+        this.textView = WordDetectFragment.textView;
         this.detector = ObjectDetection.getClient(options);
+        this.tts = new TextToSpeech( context, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != ERROR) {
+                    // 언어를 선택한다.
+                    tts.setLanguage(Locale.KOREAN);
+                    tts.setSpeechRate(2);
+                }
+            }
+        });
     }
 
     @Override
