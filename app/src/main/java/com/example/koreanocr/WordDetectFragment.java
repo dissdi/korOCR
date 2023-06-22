@@ -75,8 +75,12 @@ public class WordDetectFragment extends Fragment {
                 }
 
                 // Preview
-                Preview preview = new Preview.Builder().build();
+                // Preview
+                Preview preview = new Preview.Builder()
+                    .setTargetResolution(new Size(1280, 720)) // 인식 범위를 1280x720 설정.
+                    .build();
                 preview.setSurfaceProvider(previewView.getSurfaceProvider());
+
 
                 // Select back camera as a default
                 CameraSelector cameraSelector = new CameraSelector.Builder()
